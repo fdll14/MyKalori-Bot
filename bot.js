@@ -28,8 +28,6 @@ bot.onText(/\/start/, (msg) => {
             Selamat menggunakan <b>Kalori Bot</b>,
 
 silahkan pilih menu /help sebelum mulai menggunakan bot ini.
-
-hubungi @fdll14 jika bot mengalami masalah terimakasih.
         `, {
     parse_mode: 'HTML'
   }
@@ -40,29 +38,30 @@ bot.onText(/\/profile/, (msg) => {
 
   const chatId = msg.chat.id;
   // menampilkan data profil kamu
-  if(umur === 0 || beratBadan === 0 || tinggiBadan === 0 || gender === '' || kegiatan === ''){
+  if (umur === 0 || beratBadan === 0 || tinggiBadan === 0 || gender === '' || kegiatan === '') {
     bot.sendMessage(chatId, 'Tolong isi semua data yang kami perlukan di menu /settings terlebih dahulu')
-  }else{
-  bot.sendMessage(chatId, `Berikut data profile kamu :` +
+  } else {
+    bot.sendMessage(chatId, `Berikut data profile kamu :` +
 
-    `
+      `
 
 Nama      : `+ msg.from.first_name + `
 Umur       : `+ umur + ` Tahun
 TB            : `+ tinggiBadan + ` Cm
 BB            : `+ beratBadan + ` Kg
-Aktifitas  : `+ kegiatan +`
+Aktifitas  : `+ kegiatan + `
 Gender    : `+ gender,
-    {
-      reply_markup: {
-        inline_keyboard: [[
-          {
-            text: 'Cek kalori',
-            callback_data: 'kalori'
-          }
-        ]]
-      }
-    })}
+      {
+        reply_markup: {
+          inline_keyboard: [[
+            {
+              text: 'Cek kalori',
+              callback_data: 'kalori'
+            }
+          ]]
+        }
+      })
+  }
 });
 // Listener (handler) for callback data from /kalori command
 bot.on('callback_query', (callbackQuery) => {
@@ -667,14 +666,14 @@ bot.onText(/\/settings/, (msg) => {
             text: 'Berat Badan',
             callback_data: '/setBB'
           }
-        ],[
-        {
-          text: 'Gender',
-          callback_data: '/setgender'
-        }, {
-          text: 'Aktifitas',
-          callback_data: '/setaktifitas'
-        }]]
+        ], [
+          {
+            text: 'Gender',
+            callback_data: '/setgender'
+          }, {
+            text: 'Aktifitas',
+            callback_data: '/setaktifitas'
+          }]]
       },
     }
   );
@@ -704,7 +703,7 @@ bot.on('callback_query', (callbackQuery) => {
         bot.sendMessage(message.chat.id, 'Berat badan ' + beratBadan + ' cm berhasil disimpan!')
       }
     });
-  } else if(setting === '/setgender'){
+  } else if (setting === '/setgender') {
     bot.sendMessage(
       message.chat.id,
       'Pilih gender kamu',
@@ -722,7 +721,7 @@ bot.on('callback_query', (callbackQuery) => {
         }
       }
     );
-  }else if(setting === '/setaktifitas'){
+  } else if (setting === '/setaktifitas') {
     bot.sendMessage(
       message.chat.id,
       'Pilih jenis aktifitas kamu',
@@ -740,14 +739,14 @@ bot.on('callback_query', (callbackQuery) => {
               text: 'Sedang',
               callback_data: 'sedang'
             }
-          ],[
+          ], [
             {
-            text: 'Berat',
-            callback_data: 'berat'
-          },{
-            text: 'Sangat Berat',
-            callback_data: 'sangatberat'
-          } ]]
+              text: 'Berat',
+              callback_data: 'berat'
+            }, {
+              text: 'Sangat Berat',
+              callback_data: 'sangatberat'
+            }]]
         }
       }
     );
@@ -765,26 +764,31 @@ bot.on('callback_query', (callbackQuery) => {
     gender = callbackQuery.data;
 
     bot.sendMessage(message.chat.id, `Gender perempuan`);
-  } else if(callbackQuery.data === 'ringan'){
-    kegiatan  = callbackQuery.data
+  }
+});
+
+bot.on('callback_query', (callbackQuery) => {
+  const message = callbackQuery.message;
+  if (callbackQuery.data === 'ringan') {
+    kegiatan = callbackQuery.data
     aktifitas = 4;
-    bot.sendMessage(message.chat.id, `Kegiatan `+kegiatan);
-  } else if(callbackQuery.data === 'sangatringan'){
-    kegiatan  = callbackQuery.data
+    bot.sendMessage(message.chat.id, `Kegiatan ` + kegiatan);
+  } else if (callbackQuery.data === 'sangatringan') {
+    kegiatan = callbackQuery.data
     aktifitas = 2;
-    bot.sendMessage(message.chat.id, `Kegiatan `+kegiatan);
-  }else if(callbackQuery.data === 'sedang'){
-    kegiatan  = callbackQuery.data
+    bot.sendMessage(message.chat.id, `Kegiatan ` + kegiatan);
+  } else if (callbackQuery.data === 'sedang') {
+    kegiatan = callbackQuery.data
     aktifitas = 6;
-    bot.sendMessage(message.chat.id, `Kegiatan `+kegiatan);
-  }else if(callbackQuery.data === 'berat'){
-    kegiatan  = callbackQuery.data
+    bot.sendMessage(message.chat.id, `Kegiatan ` + kegiatan);
+  } else if (callbackQuery.data === 'berat') {
+    kegiatan = callbackQuery.data
     aktifitas = 8;
-    bot.sendMessage(message.chat.id, `Kegiatan `+kegiatan);
-  }else if(callbackQuery.data === 'sangatberat'){
-    kegiatan  = callbackQuery.data
+    bot.sendMessage(message.chat.id, `Kegiatan ` + kegiatan);
+  } else if (callbackQuery.data === 'sangatberat') {
+    kegiatan = callbackQuery.data
     aktifitas = 10;
-    bot.sendMessage(message.chat.id, `Kegiatan `+kegiatan);
+    bot.sendMessage(message.chat.id, `Kegiatan ` + kegiatan);
   }
 });
 
