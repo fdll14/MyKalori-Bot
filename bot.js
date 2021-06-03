@@ -804,6 +804,19 @@ Setelah itu kamu dapat melihat kebutuhan kalori kamu pada menu /profile dan pili
 [/help](/help)         - Untuk menampilkan pesan ini.`, { parse_mode: "markdown" })
 });
 
+bot.onText(/\/reset/, (msg) => {
+
+  const chatId = msg.chat.id;
+  tinggiBadan = 0;
+  beratBadan = 0;
+  aktifitas = 0;
+  kegiatan = '';
+  umur = 0;
+  gender = '';
+  // menampilkan cara penggunaan bot
+  bot.sendMessage(chatId, `Data berhasil direset.`, { parse_mode: "markdown" })
+});
+
 // digunakan untuk mengecek error yang ada
 bot.on('polling_error', (error) => { console.log(error) })
 
